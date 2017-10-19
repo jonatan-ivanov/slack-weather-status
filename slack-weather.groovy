@@ -5,11 +5,20 @@ import groovyx.net.http.RESTClient
 
 @Grab('org.codehaus.groovy.modules.http-builder:http-builder:0.7.1')
 
-String slackUserToken = ''
-String wundergroundApiKey = ''
+CliBuilder cli = new CliBuilder(usage: "./${this.class.getName()}.groovy <options>")
+cli.with {
+    s longOpt: 'slackToken', args: 1, required: true, argName: 'token', 'Slack User Token'
+    w longOpt: 'wundergroundApiKey', args: 1, required: true, argName: 'api-key', 'Weather Undergound API Key'
+}
+
+OptionAccessor options = cli.parse(args)
+if (options == null) System.exit(1)
+
+
+String slackUserToken = options.slackToken
+String wundergroundApiKey = options.wundergroundApiKey
 
 Map condition = getCondition(wundergroundApiKey)
-
 String tempC = condition?.temp_c
 String tempF = condition?.temp_f
 String conditionText = condition?.weather
