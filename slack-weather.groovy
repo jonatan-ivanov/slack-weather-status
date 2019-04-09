@@ -40,14 +40,14 @@ String tempText = defaultUnits == UnitsOfMeasurement.METRIC ?
 
 String statusText = (conditionText) ?
       "Weather: $conditionText $tempText" : 'Look out the window :)'
-String emoji = ":" +mapIconToSlackIcon(new String(condition?.icon?:"unknown"))  + ":"
+String emoji = ":${mapIconToSlackIcon(new String(condition?.icon?:"unknown"))}:"
 
 def slackRS = setSlackStatus(statusText, emoji, slackUserToken)
 println slackRS.statusLine
 
 def getCondition(String darkSkyApiKey, String latitude, String longitude) {
     def conditionRs = new RESTClient('https://api.darksky.net/').get(
-        path: '/forecast/' + darkSkyApiKey + '/' + latitude + "," + longitude
+        path: "/forecast/$darkSkyApiKey/$latitude,$longitude"
     )
 
     return conditionRs.data.currently
