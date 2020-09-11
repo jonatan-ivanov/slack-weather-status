@@ -97,5 +97,3 @@ def mapIconToSlackIcon(String darkSkyIcon) {
 enum UnitsOfMeasurement {
    METRIC, IMPERIAL
 }
-
-//String slackUserToken = 'xoxp-9449251159-224481289394-258134644199-0429842fd8b6a8c63eab467091a8f245'
